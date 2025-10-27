@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoraRaspberryTest", "LoraRaspberryTest\LoraRaspberryTest.csproj", "{1E08FC4C-B592-44E6-8A84-62B60254187D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoraTranceiver", "LoraTranceiver\LoraTranceiver.csproj", "{B64442F9-AA05-4F07-9E5D-0AF260B77E7F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoraLib", "LoraLib\LoraLib.csproj", "{7109D82D-C2FD-4959-9F41-60ECF2B1E818}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1E08FC4C-B592-44E6-8A84-62B60254187D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E08FC4C-B592-44E6-8A84-62B60254187D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E08FC4C-B592-44E6-8A84-62B60254187D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E08FC4C-B592-44E6-8A84-62B60254187D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B64442F9-AA05-4F07-9E5D-0AF260B77E7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B64442F9-AA05-4F07-9E5D-0AF260B77E7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B64442F9-AA05-4F07-9E5D-0AF260B77E7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B64442F9-AA05-4F07-9E5D-0AF260B77E7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7109D82D-C2FD-4959-9F41-60ECF2B1E818}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7109D82D-C2FD-4959-9F41-60ECF2B1E818}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7109D82D-C2FD-4959-9F41-60ECF2B1E818}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7109D82D-C2FD-4959-9F41-60ECF2B1E818}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
