@@ -30,14 +30,20 @@ public class Lora(SpiDevice spi, GpioPin resetPin, GpioPin cs) : ILora
         resetPin.Write(PinValue.Low);
         Thread.Sleep(20); // bzzzz
         resetPin.Write(PinValue.High);
+        Thread.Sleep(20); // bzzzz
 
         var version = ReadRegister(Regs.REG_VERSION);
+
+        if (version != 0x12)
+            return 0;
         Console.Write($"Version {version}");
+        SetFrequency(frequency);
         WriteRegister(Regs.REG_FIFO_TX_BASE_ADDR, 0);
         WriteRegister(Regs.REG_FIFO_RX_BASE_ADDR, 0);
         WriteRegister(Regs.REG_LNA, (byte)(ReadRegister(Regs.REG_LNA) | 0x03));
         WriteRegister(Regs.REG_MODEM_CONFIG_3, 0x04);
         SetTxPower(7);
+   
         Idle();
         
         _frequency = frequency;
@@ -54,6 +60,7 @@ public class Lora(SpiDevice spi, GpioPin resetPin, GpioPin cs) : ILora
         else
             ExplicitHeaderMode();
 
+
         WriteRegister(Regs.REG_FIFO_ADDR_PTR, 0);
         WriteRegister(Regs.REG_PAYLOAD_LENGTH, 0);
 
@@ -65,10 +72,11 @@ public class Lora(SpiDevice spi, GpioPin resetPin, GpioPin cs) : ILora
 
         while ((ReadRegister(Regs.REG_IRQ_FLAGS) & Regs.IRQ_TX_DONE_MASK) == 0)
         {
-            // wait
+            WriteRegister(Regs.REG_IRQ_FLAGS, Regs.IRQ_TX_DONE_MASK);
+            Console.WriteLine("Wait end...");
         }
 
-        WriteRegister(Regs.REG_IRQ_FLAGS, Regs.IRQ_TX_DONE_MASK);
+      
         return 1;
     }
     public int ParsePacket(int size)
@@ -236,7 +244,16 @@ public class Lora(SpiDevice spi, GpioPin resetPin, GpioPin cs) : ILora
         WriteRegister(Regs.REG_PA_CONFIG, (byte)(Regs.PA_BOOST | (result - 2)));
     }
 
-    private void Idle()
+    public void SetFrequency(uint freq)
+    {
+        _frequency = freq;
+        ulong frf = ((ulong)freq << 19) / 32000000;
+        WriteRegister(Regs.REG_FRF_MSB, (byte)(frf >> 16));
+        WriteRegister(Regs.REG_FRF_MID, (byte)(frf >> 8));
+        WriteRegister(Regs.REG_FRF_LSB, (byte)(frf >> 0));
+    }
+
+    public void Idle()
         => WriteRegister(Regs.REG_OP_MODE, Regs.MODE_LONG_RANGE_MODE | Regs.MODE_STDBY);
 
     private byte SingleTransfer(byte address, byte value)
